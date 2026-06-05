@@ -8,6 +8,7 @@ in
     (dir + "/bash.nix")
     (dir + "/alacritty.nix")
     (dir + "/git.nix")
+    (dir + "/niri.nix")
   ];
 
   home.username = "felps";

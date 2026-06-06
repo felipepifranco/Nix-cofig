@@ -6,9 +6,9 @@
     settings = {
       window.opacity = 0.9;
       font = {
-        size = 16;
+        size = 12;
         normal = {
-          family = "JetBrains Mono";
+          family = "Hurmit Nerd Font";
           style = "Regular";
         };
       };

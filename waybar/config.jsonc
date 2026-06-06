@@ -1,0 +1,117 @@
+{
+  "height": 30,
+  "layer": "top",
+  "position": "top",
+  "reload_style_on_change": true,
+  "tray": {
+    "spacing": 10
+  },
+  "modules-center": ["clock"],
+  "modules-left": ["custom/logo", "niri/workspaces", "custom/hotkeys"],
+  "custom/logo": {
+    "format": "    ",
+    "tooltip": true,
+    "tooltip-format": "fastfetch",
+    "on-click": "alacritty --hold -e fastfetch"
+  },
+
+  "custom/hotkeys": {
+    "format": "    ",
+    "tooltip": true,
+    "tooltip-format": "MOD + 1, 2...     (ir para área de trabalho)\nMOD + Setas       (mover foco da janela)\nALT + Setas       (mover janela atual)\nMOD + D           (Fuzzel / Menu)\nMOD + Enter       (Alacritty / Terminal)\nMOD + Q           (Fechar Janela)\nMOD + Shift + E   (Sair do Niri)\nMOD + V           (Janela flutuante)\nPrint             (Captura de tela)"
+  },
+  "niri/workspaces": {
+    "all-output": true,
+    "format": "{index}"
+  },
+  "modules-right": [
+    "group/audiogroup",
+    "bluetooth",
+    "network",
+    "cpu",
+    "memory",
+    "temperature",
+    "battery",
+    "custom/power"
+  ],
+
+  "battery": {
+    "format": "{capacity}% {icon}",
+    "format-charging": "{capacity}% {icon}",
+    "format-plugged": "{capacity}% {icon}",
+    "format-alt": "{time} {icon}",
+    "format-icons": {
+      "default": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+      "plugged": ["󰢟", "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
+      "charging": ["󰢟", "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"]
+    },
+    "states": {
+      "critical": 15,
+      "warning": 30
+    }
+  },
+  "clock": {
+    "format-alt": "  {:%Y-%m-%d}  ",
+    "tooltip-format": "{:%Y-%m-%d | %H:%M}"
+  },
+  "cpu": {
+    "format": "{usage}% ",
+    "tooltip": false
+  },
+  "memory": {
+    "format": "{}% "
+  },
+  "network": {
+    "interval": 1,
+    "format-alt": "{essid} ({signalStrength}%) 󱂇",
+    "format-disconnected": "Disconnected 󱂇",
+    "format-ethernet": "{essid} ({signalStrength}%) 󱂇",
+    "format-linked": "{essid} ({signalStrength}%) 󱂇",
+    "format-wifi": "{essid} ({signalStrength}%) 󱂇",
+    "on-click": "alacritty -e nmtui"
+  },
+  "bluetooth": {
+    "format": "",
+    "format-disabled": "󰂲",
+    "format-connected": "󰂱 {device_alias}",
+    "format-connected-battery": "󰂱 {device_alias} {device_battery_percentage}%",
+    "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} conectados",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} conectados\n\n{device_enumerate}",
+    "on-click": "alacritty -e bluetoothctl"
+  },
+  "group/audiogroup": {
+		"orientation": "horizontal",
+    "click-to-reveal": true,
+		"modules": [
+			"pulseaudio",
+			"pulseaudio/slider"
+		],
+    "drawer": {
+      "click-to-reveal": false,
+      "transition-duration": 600,
+      "transition-left-to-right": true,
+      "children-class": "audio_children_class"
+    }
+	},
+  "pulseaudio": {
+      "format": "{volume}% ",
+      "format-bluetooth": "{volume}% 󰂯",
+      "format-muted": "Audio Muted 󰟎",
+      "on-click": "pavucontrol"
+  },
+  "pulseaudio/slider": {
+      "min": 0,
+      "max": 100,
+      "orientation": "horizontal"
+  },
+  "temperature": {
+    "critical-threshold": 80,
+    "format": "{temperatureC}°C {icon}",
+    "format-icons": ["", "", "", "", ""]
+  },
+  "custom/power": {
+    "format": "  ⏻  ",
+    "on-click": "wlogout"
+  }
+
+}

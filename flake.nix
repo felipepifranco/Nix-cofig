@@ -8,9 +8,14 @@
       url = "github:nix-community/home-manager/master"; # Use a mesma versão do seu nixpkgs
       inputs.nixpkgs.follows = "nixpkgs"; # Garante que ele use os mesmos pacotes do sistema
     };
+
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }: {
+  outputs = { self, nixpkgs, home-manager, niri, ... }: {
 
     nixosConfigurations.felps = nixpkgs.lib.nixosSystem{ # meu nome de usuário
       system = "x86_64-linux";
@@ -22,6 +27,7 @@
               useUserPackages = true;
               useGlobalPkgs = true;
               backupFileExtension = "backup";
+              sharedModules = [ niri.homeModules.niri ];
               users.felps = ./home.nix;
           };
         }

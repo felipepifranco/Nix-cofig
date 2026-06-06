@@ -54,20 +54,34 @@
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
+    extraPackages = with pkgs; [
+      intel-media-driver     # VA-API (iHD) userspace
+      vpl-gpu-rt             # oneVPL (QSV) runtime
+      intel-compute-runtime  # OpenCL
+    ];
   };
+  
+  hardware.enableRedistributableFirmware = true;
+  boot.kernelParams = [ "i915.enable_guc=3" ];
 
   # DESKTOP/WINDOW MANAGMENT
-    services.xserver ={
-      enable = true;
-      displayManager.gdm.enable = true;
-      # desktopManager.gnome.enable = true;
-      autoRepeatDelay = 200; # o quanto pode repetir uma tecla
-      autoRepeatInterval = 35;
-      xkb = { # teclado
-        layout = "br";
-        variant = "";
-      };
+  services.displayManager.sddm = {
+    enable = true;
+    wayland.enable = true; 
+  };
+
+  services.xserver ={
+    enable = true;
+    videoDrivers = [ "modesetting" ];
+    # displayManager.gdm.enable = true;
+    # desktopManager.gnome.enable = true;
+    autoRepeatDelay = 200; # o quanto pode repetir uma tecla
+    autoRepeatInterval = 35;
+    xkb = { # teclado
+      layout = "br";
+      variant = "";
     };
+  };
 
   programs.niri.enable = true;
 
@@ -99,6 +113,7 @@
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
+    alacritty
     waybar
     fuzzel # abrir o window dinamico
     swaybg
@@ -112,11 +127,19 @@
     tealdeer
     xclip
     bat
+    fastfetch
+    pavucontrol
+    wlogout
     # wget
   ];
   
+  environment.sessionVariables = {
+    LIBVA_DRIVER_NAME = "iHD";     # Prefer the modern iHD backend
+    # VDPAU_DRIVER = "va_gl";      # Only if using libvdpau-va-gl
+  };
+  
   fonts.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
+    nerd-fonts.hurmit
   ];
   
 

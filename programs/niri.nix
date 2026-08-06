@@ -18,14 +18,14 @@
 
     spawn-at-startup = [
       { command = [ "waybar" ]; }
-      { command = [ "swaybg" "-i" "/home/felps/Pictures/wallpapaerss.jpg" "-m" "fill" ]; } 
+      { command = [ "swaybg" "-i" "/home/felps/Downloads/wallpap.jpg" "-m" "fill" ]; } 
     ];
     # 3. ATALHOS VITAIS DE SOBREVIVÊNCIA
 binds = {
       # =========================================
       # 1. SOBREVIVÊNCIA (Os que você já tinha)
       # =========================================
-      "Mod+Return".action.spawn = [ "alacritty" ]; 
+      "Mod+Return".action.spawn = [ "kitty" ]; 
       "Mod+D".action.spawn = [ "fuzzel" ];         
       "Mod+Q".action.close-window = {};            
       "Mod+Shift+E".action.quit = {};              
@@ -45,8 +45,8 @@ binds = {
       # Empurra a janela atual, trocando ela de posição com as outras
       "Alt+Left".action.move-column-left = {};
       "Alt+Right".action.move-column-right = {};
-      "Alt+Up".action.move-window-up = {};
-      "Alt+Down".action.move-window-down = {};
+      # "Alt+Up".action.move-window-up = {};
+      # "Alt+Down".action.move-window-down = {};
 
       # =========================================
       # 4. REDIMENSIONAR (Largura e Altura)
@@ -77,6 +77,7 @@ binds = {
       "Mod+F".action.maximize-column = {}; 
       # Tela cheia absoluta (ótimo para vídeos ou máquinas virtuais)
       "Mod+Shift+F".action.fullscreen-window = {}; 
+      "Mod+B".action.spawn = [ "pkill" "-SIGUSR1" "waybar" ]; # some com a barra
 
       # =========================================
       # 7. ÁREAS DE TRABALHO (Workspaces)
@@ -93,6 +94,22 @@ binds = {
       "Alt+3".action.move-column-to-workspace = 3;
       "Alt+4".action.move-column-to-workspace = 4;
       "Alt+5".action.move-column-to-workspace = 5;
+    
+      
+      # =========================================
+      # 8. BOTÕES DE CONTROLE (DE F1 A F7)
+      # =========================================
+      # --- Controle de Volume ---
+      "XF86AudioRaiseVolume".action.spawn = [ "wpctl" "set-volume" "-l" "1.0" "@DEFAULT_AUDIO_SINK@" "5%+" ];
+      "XF86AudioLowerVolume".action.spawn = [ "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-" ];
+      "XF86AudioMute".action.spawn = [ "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle" ];
+
+      # --- Controle de Mídia (Spotify, YouTube, etc) ---
+      "XF86AudioPlay".action.spawn = [ "playerctl" "play-pause" ];
+
+      # --- Controle de Brilho da Tela ---
+      "XF86MonBrightnessUp".action.spawn = [ "brightnessctl" "set" "5%+" ];
+      "XF86MonBrightnessDown".action.spawn = [ "brightnessctl" "set" "5%-" ];
     };
   };
 };

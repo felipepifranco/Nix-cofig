@@ -251,7 +251,7 @@ window#waybar {
 #pulseaudio-slider slider {
     min-height: 10px;
     min-width: 10px;
-    margin: -5px 0 0 0;
+    margin: 0px 0 0 0;
     border-radius: 50%;
     background-color: @base05;
     border: 2px solid @base03;
@@ -261,7 +261,7 @@ window#waybar {
 
 #pulseaudio-slider slider:hover {
     background-color: @base05;
-    margin: -6px 0 0 0;
+    margin: 0px 0 0 0;
     border-color: @base0D;
 }
 
@@ -322,22 +322,6 @@ window#waybar {
     transition: all 0.2s ease;
 }
 
-#pulseaudio-slider slider {
-    min-height: 10px;
-    min-width: 10px;
-    margin: -5px 0 0 0;
-    border-radius: 50%;
-    background-color: @base05;
-    border: 2px solid @base03;
-    box-shadow: none;
-    transition: all 0.2s ease;
-}
-
-#pulseaudio-slider slider:hover {
-    background-color: @base05;
-    margin: -6px 0 0 0;
-    border-color: @base0D;
-}
 
 #group-audiogroup #pulseaudio:hover {
     background: @base02;

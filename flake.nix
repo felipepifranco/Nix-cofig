@@ -13,9 +13,14 @@
       url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    pwndbg = {
+        url = "github:pwndbg/pwndbg";
+        inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, niri, ... }: {
+  outputs = { self, nixpkgs, home-manager, niri, pwndbg, ... }: {
 
     nixosConfigurations.felps = nixpkgs.lib.nixosSystem{ # meu nome de usuário
       system = "x86_64-linux";
@@ -27,6 +32,7 @@
               useUserPackages = true;
               useGlobalPkgs = true;
               backupFileExtension = "backup";
+              extraSpecialArgs = { inherit pwndbg; }; #converir
               sharedModules = [ niri.homeModules.niri ];
               users.felps = ./home.nix;
           };

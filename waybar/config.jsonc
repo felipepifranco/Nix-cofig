@@ -12,13 +12,13 @@
     "format": "    ",
     "tooltip": true,
     "tooltip-format": "fastfetch",
-    "on-click": "alacritty --hold -e fastfetch"
+    "on-click": "kitty --hold fastfetch"
   },
 
   "custom/hotkeys": {
     "format": "    ",
     "tooltip": true,
-    "tooltip-format": "MOD + 1, 2...     (ir para área de trabalho)\nMOD + Setas       (mover foco da janela)\nALT + Setas       (mover janela atual)\nMOD + D           (Fuzzel / Menu)\nMOD + Enter       (Alacritty / Terminal)\nMOD + Q           (Fechar Janela)\nMOD + Shift + E   (Sair do Niri)\nMOD + V           (Janela flutuante)\nPrint             (Captura de tela)"
+    "tooltip-format": "MOD + 1, 2...     (ir para área de trabalho)\nMOD + Setas       (mover foco da janela)\nALT + Setas       (mover janela atual)\nMOD + D           (Fuzzel / Menu)\nMOD + Enter       (Kitty / Terminal)\nMOD + Q           (Fechar Janela)\nMOD + Shift + E   (Sair do Niri)\nMOD + V           (Janela flutuante)\nPrint             (Captura de tela)"
   },
   "niri/workspaces": {
     "all-output": true,
@@ -35,7 +35,7 @@
     "custom/power"
   ],
 
-  "battery": {
+  "battery": {  
     "format": "{capacity}% {icon}",
     "format-charging": "{capacity}% {icon}",
     "format-plugged": "{capacity}% {icon}",
@@ -48,8 +48,12 @@
     "states": {
       "critical": 15,
       "warning": 30
-    }
+    },
+    
+    // A MÁGICA ACONTECE AQUI:
+    "on-click": "modo=$(printf 'performance\\nbalanced\\npower-saver' | fuzzel --dmenu --lines 3 -p '⚡ Energia: ') && powerprofilesctl set $modo"
   },
+
   "clock": {
     "format-alt": "  {:%Y-%m-%d}  ",
     "tooltip-format": "{:%Y-%m-%d | %H:%M}"
@@ -68,7 +72,7 @@
     "format-ethernet": "{essid} ({signalStrength}%) 󱂇",
     "format-linked": "{essid} ({signalStrength}%) 󱂇",
     "format-wifi": "{essid} ({signalStrength}%) 󱂇",
-    "on-click": "alacritty -e nmtui"
+    "on-click": "kitty nmtui"
   },
   "bluetooth": {
     "format": "",
@@ -77,7 +81,7 @@
     "format-connected-battery": "󰂱 {device_alias} {device_battery_percentage}%",
     "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} conectados",
     "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} conectados\n\n{device_enumerate}",
-    "on-click": "alacritty -e bluetoothctl"
+    "on-click": "blueman-manager"
   },
   "group/audiogroup": {
 		"orientation": "horizontal",

@@ -11,11 +11,34 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "felps"; # Define your hostname.
-  networking.networkmanager.enable = true;
+  networking.networkmanager = {
+    enable = true;
+    plugins = with pkgs; [
+      networkmanager-openvpn
+    ];
+  };
 
   services.resolved.enable = true; 
 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings = {
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+
+    substituters = [
+      "https://cache.nixos.org/"
+      "https://nix-community.cachix.org/"
+    ];
+
+    trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    ];
+
+    max-jobs = "auto";
+    cores = 0;
+  };
 
   
   # Configure network proxy if necessary
@@ -28,11 +51,10 @@
     isNormalUser = true;
     description = "felps";
     extraGroups = [ "networkmanager" "wheel" "docker" "wireshark"];
-    packages = with pkgs; [
-    #  thunderbird
-    ];
+    shell = pkgs.fish;
   };
 
+  programs.fish.enable = true;
   # Set your time zone.
   time.timeZone = "America/Sao_Paulo";
 
@@ -73,8 +95,6 @@
     videoDrivers = [ "modesetting" ];
     # displayManager.gdm.enable = true;
     # desktopManager.gnome.enable = true;
-    autoRepeatDelay = 200; # o quanto pode repetir uma tecla
-    autoRepeatInterval = 35;
     xkb = { # teclado
       layout = "br";
       variant = "";
@@ -83,6 +103,7 @@
 
   # modos de gasto de bateria
   services.power-profiles-daemon.enable = true;
+  services.upower.enable = true;
   services.tlp.enable = false;
 
   programs.niri.enable = true;
@@ -125,6 +146,14 @@
 
   # PROGRAMAS E PACOTES
 
+  programs.noctalia = {
+    enable = true;
+
+    # Ativa NetworkManager, Bluetooth, UPower e perfis de energia automaticamente
+    recommendedServices.enable = true;
+  };
+  
+
   programs.firefox.enable = true; # install firefox
   programs.steam = {
     enable = true; #install steam
@@ -143,15 +172,8 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  programs.zsh.shellAliases = {
-    gdb = "/etc/profiles/per-user/felps/bin/pwndbg";
-  };
-
   environment.systemPackages = with pkgs; [
-    yazi
-    kdePackages.dolphin
     ripdrag
-    waybar
     fuzzel # abrir o window dinamico
     swaybg
     xdg-desktop-portal # TODO: ver
@@ -171,6 +193,8 @@
     wlogout
     obs-studio
     super-productivity
+    keepassxc
+    unzip
     # TP PDS2
     gnumake
     cmake
@@ -180,12 +204,20 @@
     brightnessctl
     playerctl
     # wget
-    unzip
     # IJUNIOR
     nodejs
     typescript
+    
     btop
+    gimp
+    networkmanager-openvpn
     thunar
+    nh
+
+    direnv
+    nix-direnv
+
+    stremio-linux-shell
   ];
   # ghidra
   programs.ghidra.enable = true;
@@ -229,6 +261,13 @@
     nerd-fonts.hurmit
   ];
   
+  # performance
+  services.ananicy = {
+    enable = false;
+    package = pkgs.ananicy-cpp;
+    rulesProvider = pkgs.ananicy-rules-cachyos;
+  };
+  services.irqbalance.enable = true;
 
   hardware.bluetooth = {
    enable = true;

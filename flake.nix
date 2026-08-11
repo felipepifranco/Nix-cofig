@@ -2,11 +2,11 @@
   description = "A very basic flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable"; 
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager/master"; # Use a mesma versão do seu nixpkgs
-      inputs.nixpkgs.follows = "nixpkgs"; # Garante que ele use os mesmos pacotes do sistema
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     niri = {
@@ -15,29 +15,60 @@
     };
 
     pwndbg = {
-        url = "github:pwndbg/pwndbg";
-        inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:pwndbg/pwndbg";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    wlctl = {
+      url = "github:aashish-thapa/wlctl";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, niri, pwndbg, ... }: {
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      niri,
+      pwndbg,
+      wlctl,
+      noctalia,
+      ...
+    }:
+    {
+      nixosConfigurations.felps = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
 
-    nixosConfigurations.felps = nixpkgs.lib.nixosSystem{ # meu nome de usuário
-      system = "x86_64-linux";
-      modules = [ # especificando os módulos
-        ./configuration.nix 
-        home-manager.nixosModules.home-manager
-        {
-          home-manager = {
+        modules = [
+          ./configuration.nix
+
+          home-manager.nixosModules.home-manager
+
+          {
+            home-manager = {
               useUserPackages = true;
               useGlobalPkgs = true;
               backupFileExtension = "backup";
-              extraSpecialArgs = { inherit pwndbg; }; #converir
-              sharedModules = [ niri.homeModules.niri ];
+
+              extraSpecialArgs = {
+                inherit pwndbg wlctl;
+              };
+
+              sharedModules = [
+                niri.homeModules.niri
+                noctalia.homeModules.default
+              ];
+
               users.felps = ./home.nix;
-          };
-        }
-      ]; 
+            };
+          }
+        ];
+      };
     };
-  };
 }

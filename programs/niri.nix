@@ -3,11 +3,21 @@
 {
   programs.niri = {
   enable = true;
+  package = pkgs.niri;
   settings = {
     prefer-no-csd = true;
-    input.keyboard.xkb = {
-      layout = "br";
+    input = {
+      keyboard.xkb = {
+        layout = "br";
+      };
+      
+      touchpad = {
+          tap = true;
+          natural-scroll = true;
+          click-method = "button-areas";
+        };
     };
+
     layout = {
       gaps = 4;
       focus-ring = {
@@ -17,15 +27,16 @@
     };
 
     spawn-at-startup = [
-      { command = [ "waybar" ]; }
+      { command = [ "noctalia" ]; }
       { command = [ "swaybg" "-i" "/home/felps/Downloads/wallpap.jpg" "-m" "fill" ]; } 
     ];
+        
     # 3. ATALHOS VITAIS DE SOBREVIVÊNCIA
 binds = {
       # =========================================
       # 1. SOBREVIVÊNCIA (Os que você já tinha)
       # =========================================
-      "Mod+Return".action.spawn = [ "kitty" ]; 
+      "Mod+Return".action.spawn = [ "alacritty" ]; 
       "Mod+D".action.spawn = [ "fuzzel" ];         
       "Mod+Q".action.close-window = {};            
       "Mod+Shift+E".action.quit = {};              
@@ -77,7 +88,6 @@ binds = {
       "Mod+F".action.maximize-column = {}; 
       # Tela cheia absoluta (ótimo para vídeos ou máquinas virtuais)
       "Mod+Shift+F".action.fullscreen-window = {}; 
-      "Mod+B".action.spawn = [ "pkill" "-SIGUSR1" "waybar" ]; # some com a barra
 
       # =========================================
       # 7. ÁREAS DE TRABALHO (Workspaces)

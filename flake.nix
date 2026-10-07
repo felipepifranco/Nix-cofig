@@ -12,6 +12,9 @@
     niri = {
       url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
+
+      inputs.xwayland-satellite-unstable.url =
+      "github:Supreeeme/xwayland-satellite";
     };
 
     pwndbg = {

@@ -1,0 +1,29 @@
+[0;1;32m●[0m postgresql.service - PostgreSQL Server
+     Loaded: loaded (]8;;file://felps/etc/systemd/system/postgresql.service\/etc/systemd/system/postgresql.service]8;;\; linked; preset: ignored)
+     Active: [0;1;32mactive (running)[0m since Mon 2026-10-05 15:13:42 -03; 10min ago
+ Invocation: 904fe65a80c44fb7a69e2c00ccba49c5
+    Process: 46617 ExecStartPre=/nix/store/g5dg632i17blz5031yp91vy752j9hb44-unit-script-postgresql-pre-start/bin/postgresql-pre-start (code=exited, status=0/SUCCESS)
+   Main PID: 46646 (.postgres-wrapp)
+         IP: 12.7K in, 9.4K out
+         IO: 3.4M read, 40M written
+      Tasks: 6[0;38:5:245m (limit: 18756)[0m
+     Memory: 66.8M (peak: 79.2M)
+        CPU: 1.360s
+     CGroup: /system.slice/postgresql.service
+             ├─[0;38:5:245m46646 /nix/store/vy0075dfgiw6mz8ldhrg0pyhfyfmam99-postgresql-and-plugins-17.11/bin/postgres[0m
+             ├─[0;38:5:245m46650 "postgres: checkpointer "[0m
+             ├─[0;38:5:245m46651 "postgres: background writer "[0m
+             ├─[0;38:5:245m46653 "postgres: walwriter "[0m
+             ├─[0;38:5:245m46654 "postgres: autovacuum launcher "[0m
+             └─[0;38:5:245m46655 "postgres: logical replication launcher "[0m
+
+out 05 15:15:23 felps postgres[59059]: [59059] DETAIL:  User "postgres" has no password assigned.
+out 05 15:15:23 felps postgres[59059]:         Connection matched file "/nix/store/2qwpgc6d2qgyh93v77xvx8gn7ykzfs4n-pg_hba.conf" line 5: "host  all all 127.0.0.1/32 md5"
+out 05 15:15:46 felps postgres[59085]: [59085] FATAL:  password authentication failed for user "postgres"
+out 05 15:15:46 felps postgres[59085]: [59085] DETAIL:  User "postgres" has no password assigned.
+out 05 15:15:46 felps postgres[59085]:         Connection matched file "/nix/store/2qwpgc6d2qgyh93v77xvx8gn7ykzfs4n-pg_hba.conf" line 6: "host  all all ::1/128      md5"
+out 05 15:15:46 felps postgres[59086]: [59086] FATAL:  password authentication failed for user "postgres"
+out 05 15:15:46 felps postgres[59086]: [59086] DETAIL:  User "postgres" has no password assigned.
+out 05 15:15:46 felps postgres[59086]:         Connection matched file "/nix/store/2qwpgc6d2qgyh93v77xvx8gn7ykzfs4n-pg_hba.conf" line 5: "host  all all 127.0.0.1/32 md5"
+out 05 15:18:42 felps postgres[46650]: [46650] LOG:  checkpoint starting: time
+out 05 15:18:47 felps postgres[46650]: [46650] LOG:  checkpoint complete: wrote 48 buffers (0.3%); 0 WAL file(s) added, 0 removed, 0 recycled; write=4.516 s, sync=0.006 s, total=4.531 s; sync files=13, longest=0.003 s, average=0.001 s; distance=288 kB, estimate=288 kB; lsn=0/153BF90, redo lsn=0/153BF38

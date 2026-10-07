@@ -26,11 +26,20 @@
       };
     };
 
+    window-rules = [
+    {
+      matches = [
+        { app-id = "^Alacritty$"; }
+      ];
+      draw-border-with-background = false;
+    }
+  ];
+
     spawn-at-startup = [
       { command = [ "noctalia" ]; }
       { command = [ "swaybg" "-i" "/home/felps/Downloads/wallpap.jpg" "-m" "fill" ]; } 
     ];
-        
+
     # 3. ATALHOS VITAIS DE SOBREVIVÊNCIA
 binds = {
       # =========================================

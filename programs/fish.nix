@@ -14,9 +14,42 @@
   ];
 
   # 2. Ative o Zellij via Home Manager (Resolve o erro 'zellij')
-  programs.zellij = {
-    enable = true;
+programs.zellij = {
+  enable = true;
+  enableFishIntegration = false;
+
+  settings = {
+    default_shell = "${pkgs.fish}/bin/fish";
+    default_layout = "default";
+    pane_frames = true;
+    pane_frame_style = "full";
+
+    theme = "meu-tema";
+
+    themes.meu-tema = {
+      fg = "#b1bac4";
+      bg = "#011319";
+
+      frame_selected = {
+  base = "#DCC66E";
+  background = "#011319";
+  emphasis_0 = "#b1bac4";
+  emphasis_1 = "#b1bac4";
+  emphasis_2 = "#b1bac4";
+  emphasis_3 = "#b1bac4";
+};
+
+frame_highlight = {
+  base = "#DCC66E";
+  background = "#011319";
+  emphasis_0 = "#b1bac4";
+  emphasis_1 = "#b1bac4";
+  emphasis_2 = "#b1bac4";
+  emphasis_3 = "#b1bac4";
+};
+    };
   };
+};
 
   # 1. Ferramentas CLI Integradas
   programs.starship = {
@@ -24,10 +57,10 @@
     enableFishIntegration = true;
   };
 
-  programs.fzf = {
-    enable = true;
-    enableFishIntegration = true;
-  };
+  # programs.fzf = {
+  #   enable = true;
+  #   enableFishIntegration = true;
+  # };
 
   programs.skim = {
     enable = true;
@@ -41,7 +74,7 @@
 
   # 2. Configuração Principal do Fish Shell
   programs.fish = {
-
+    enable = true;
     interactiveShellInit = ''
       # Ativa atalhos de navegação estilo Vi
       fish_vi_key_bindings
@@ -64,7 +97,7 @@
       # Anexa automaticamente à sessão 'Grimoire' do Zellij ao abrir o terminal
       if status is-interactive
         if not set -q ZELLIJ; and test "$TERM" != "dumb"
-          exec zellij attach -c Grimoire
+          zellij --layout default attach -c Grimoire
         end
       end
     '';
@@ -74,6 +107,7 @@
       rb = "nh os switch";
       btw = "echo uso o nixos, btw";
       config = "cd /etc/nixos";
+      cd = "z";
     };
 
     # 4. Funções Personalizadas do Fish
@@ -108,6 +142,8 @@
         else
           echo "Template .envrc não encontrado em $config_root/grimoire/schools/template/.envrc"
         end
+
+        zoxide init fish | source
       '';
     };
   };

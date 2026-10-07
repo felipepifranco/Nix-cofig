@@ -8,7 +8,11 @@
     file
     (python3.withPackages (ps: [ ps.pwntools ps.pytest ]))
     ltrace
+
     docker
+    proton-vpn
+    vlc
+
     # --- Aqui você pode ir adicionando outras ferramentas no futuro ---
     # burpsuite   # Análise de vulnerabilidades Web
     # wireshark   # Análise de tráfego de rede

@@ -50,7 +50,7 @@
   users.users.felps = {
     isNormalUser = true;
     description = "felps";
-    extraGroups = [ "networkmanager" "wheel" "docker" "wireshark"];
+    extraGroups = [ "networkmanager" "wheel" "docker" "wireshark" "libvirtd"];
     shell = pkgs.fish;
   };
 
@@ -84,10 +84,14 @@
   };
   
   hardware.enableRedistributableFirmware = true;
-  boot.kernelParams = [ "i915.enable_guc=3" ];
+  boot.kernelParams = [
+    "i915.enable_guc=3"
+    "rtw88_core.disable_lps_deep=y"
+    "rtw88_pci.disable_aspm=y"
+  ];
 
   # DESKTOP/WINDOW MANAGMENT
-  services.displayManager.ly.enable = true;
+  services.displayManager.ly.enable = true; # senha password user
   
 
   services.xserver ={
@@ -146,6 +150,10 @@
 
   # PROGRAMAS E PACOTES
 
+  # permite uso de vms
+  virtualisation.libvirtd.enable = true;
+  programs.virt-manager.enable = true;
+
   programs.noctalia = {
     enable = true;
 
@@ -200,6 +208,7 @@
     cmake
     doxygen
     gcovr
+    gitbutler
     # configurar botoes
     brightnessctl
     playerctl
@@ -213,12 +222,26 @@
     networkmanager-openvpn
     thunar
     nh
+    libreoffice-qt
 
     direnv
     nix-direnv
+    oxker
 
     stremio-linux-shell
+    zoxide 
+    devenv
+    gparted
+    heroic
+
+    qemu
+    pgadmin4
+    postgresql
   ];
+  services.postgresql = {
+    enable = true;
+    enableTCPIP = true;
+  };
   # ghidra
   programs.ghidra.enable = true;
   virtualisation.docker.enable = true;
@@ -232,6 +255,8 @@
     enable = true;
     package = pkgs.mysql84;
   };
+
+  
 
   # Adicione seu usuário ao grupo do Wireshark
 # Add your user to the docker group
